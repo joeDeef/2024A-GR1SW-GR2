@@ -133,11 +133,22 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\OpenGL_Stuff\Library\glad.c" />
-    <ClCompile Include="C3_Exercise_16_Load3DModel_Task3.cpp" />
+    <ClCompile Include="ProyectoCG.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\shader_exercise16_mloading.fs" />
-    <None Include="shaders\shader_exercise16_mloading.vs" />
+    <None Include="model\avioncito\avioncito.mtl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="model\avioncito\AILES_baseColor.jpeg" />
+    <Image Include="model\avioncito\AMORTIS_baseColor.jpeg" />
+    <Image Include="model\avioncito\BAGUE_baseColor.jpeg" />
+    <Image Include="model\avioncito\BOMBE_baseColor.jpeg" />
+    <Image Include="model\avioncito\CARLINGUE_baseColor.jpeg" />
+    <Image Include="model\avioncito\echappement_baseColor.jpeg" />
+    <Image Include="model\avioncito\ELICE_baseColor.jpeg" />
+    <Image Include="model\avioncito\entourage_MOTEUR_baseColor.jpeg" />
+    <Image Include="model\avioncito\PNEU_baseColor.jpeg" />
+    <Image Include="model\avioncito\PNEU_normal.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
