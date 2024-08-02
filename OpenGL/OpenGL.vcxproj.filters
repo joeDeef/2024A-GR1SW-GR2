@@ -22,6 +22,12 @@
     <Filter Include="Archivos de origen\model">
       <UniqueIdentifier>{14a736ad-77a6-4410-8661-d04c0f9ce194}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de origen\model\immortalDemonic">
+      <UniqueIdentifier>{2c63cb9d-6305-4459-be05-7819df799bb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de origen\model\ovni">
+      <UniqueIdentifier>{4fccb283-bd5a-4037-9f71-8991a3e02f77}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\OpenGL_Stuff\Library\glad.c">
@@ -38,5 +44,100 @@
     <None Include="shaders\shader_exercise16_mloading.vs">
       <Filter>Archivos de origen\shaders</Filter>
     </None>
+    <None Include="model\avioncito\avioncito.mtl" />
+    <None Include="model\immortalDemonic\untitled.mtl">
+      <Filter>Archivos de origen\model\immortalDemonic</Filter>
+    </None>
+    <None Include="model\ovni\ovni.mtl">
+      <Filter>Archivos de origen\model\ovni</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="model\avioncito\AILES_baseColor.jpeg">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="model\avioncito\AMORTIS_baseColor.jpeg">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="model\avioncito\BAGUE_baseColor.jpeg">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="model\avioncito\BOMBE_baseColor.jpeg">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="model\avioncito\CARLINGUE_baseColor.jpeg">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="model\avioncito\echappement_baseColor.jpeg">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="model\avioncito\ELICE_baseColor.jpeg">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="model\avioncito\entourage_MOTEUR_baseColor.jpeg">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="model\avioncito\PNEU_baseColor.jpeg">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="model\avioncito\PNEU_normal.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="model\immortalDemonic\Material.001_baseColor.png">
+      <Filter>Archivos de origen\model\immortalDemonic</Filter>
+    </Image>
+    <Image Include="model\immortalDemonic\Material.001_normal.png">
+      <Filter>Archivos de origen\model\immortalDemonic</Filter>
+    </Image>
+    <Image Include="model\ovni\light_glass_baseColor.png">
+      <Filter>Archivos de origen\model\ovni</Filter>
+    </Image>
+    <Image Include="model\ovni\light_glass_emissive.png">
+      <Filter>Archivos de origen\model\ovni</Filter>
+    </Image>
+    <Image Include="model\ovni\light_glass_metallicRoughness.png">
+      <Filter>Archivos de origen\model\ovni</Filter>
+    </Image>
+    <Image Include="model\ovni\light_glass_normal.png">
+      <Filter>Archivos de origen\model\ovni</Filter>
+    </Image>
+    <Image Include="model\ovni\light_glass_specularf0.png">
+      <Filter>Archivos de origen\model\ovni</Filter>
+    </Image>
+    <Image Include="model\ovni\metal_baseColor.png">
+      <Filter>Archivos de origen\model\ovni</Filter>
+    </Image>
+    <Image Include="model\ovni\metal_emissive.png">
+      <Filter>Archivos de origen\model\ovni</Filter>
+    </Image>
+    <Image Include="model\ovni\metal_metallicRoughness.png">
+      <Filter>Archivos de origen\model\ovni</Filter>
+    </Image>
+    <Image Include="model\ovni\metal_normal.png">
+      <Filter>Archivos de origen\model\ovni</Filter>
+    </Image>
+    <Image Include="model\ovni\metal_specularf0.png">
+      <Filter>Archivos de origen\model\ovni</Filter>
+    </Image>
+    <Image Include="model\ovni\rock_baseColor.png">
+      <Filter>Archivos de origen\model\ovni</Filter>
+    </Image>
+    <Image Include="model\ovni\rock_metallicRoughness.png">
+      <Filter>Archivos de origen\model\ovni</Filter>
+    </Image>
+    <Image Include="model\ovni\rock_normal.png">
+      <Filter>Archivos de origen\model\ovni</Filter>
+    </Image>
+    <Image Include="model\ovni\rock_specularf0.png">
+      <Filter>Archivos de origen\model\ovni</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="model\immortalDemonic\demonio.obj">
+      <Filter>Archivos de origen\model\immortalDemonic</Filter>
+    </Object>
+    <Object Include="model\ovni\ovni.obj">
+      <Filter>Archivos de origen\model\ovni</Filter>
+    </Object>
   </ItemGroup>
 </Project>

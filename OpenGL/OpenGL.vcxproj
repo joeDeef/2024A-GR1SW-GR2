@@ -136,8 +136,43 @@
     <ClCompile Include="C3_Exercise_16_Load3DModel_Task3.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="model\avioncito\avioncito.mtl" />
+    <None Include="model\immortalDemonic\untitled.mtl" />
+    <None Include="model\ovni\ovni.mtl" />
     <None Include="shaders\shader_exercise16_mloading.fs" />
     <None Include="shaders\shader_exercise16_mloading.vs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="model\avioncito\AILES_baseColor.jpeg" />
+    <Image Include="model\avioncito\AMORTIS_baseColor.jpeg" />
+    <Image Include="model\avioncito\BAGUE_baseColor.jpeg" />
+    <Image Include="model\avioncito\BOMBE_baseColor.jpeg" />
+    <Image Include="model\avioncito\CARLINGUE_baseColor.jpeg" />
+    <Image Include="model\avioncito\echappement_baseColor.jpeg" />
+    <Image Include="model\avioncito\ELICE_baseColor.jpeg" />
+    <Image Include="model\avioncito\entourage_MOTEUR_baseColor.jpeg" />
+    <Image Include="model\avioncito\PNEU_baseColor.jpeg" />
+    <Image Include="model\avioncito\PNEU_normal.png" />
+    <Image Include="model\immortalDemonic\Material.001_baseColor.png" />
+    <Image Include="model\immortalDemonic\Material.001_normal.png" />
+    <Image Include="model\ovni\light_glass_baseColor.png" />
+    <Image Include="model\ovni\light_glass_emissive.png" />
+    <Image Include="model\ovni\light_glass_metallicRoughness.png" />
+    <Image Include="model\ovni\light_glass_normal.png" />
+    <Image Include="model\ovni\light_glass_specularf0.png" />
+    <Image Include="model\ovni\metal_baseColor.png" />
+    <Image Include="model\ovni\metal_emissive.png" />
+    <Image Include="model\ovni\metal_metallicRoughness.png" />
+    <Image Include="model\ovni\metal_normal.png" />
+    <Image Include="model\ovni\metal_specularf0.png" />
+    <Image Include="model\ovni\rock_baseColor.png" />
+    <Image Include="model\ovni\rock_metallicRoughness.png" />
+    <Image Include="model\ovni\rock_normal.png" />
+    <Image Include="model\ovni\rock_specularf0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="model\immortalDemonic\demonio.obj" />
+    <Object Include="model\ovni\ovni.obj" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
