@@ -150,6 +150,10 @@
     <Image Include="model\avioncito\PNEU_baseColor.jpeg" />
     <Image Include="model\avioncito\PNEU_normal.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\OpenGL_Stuff\include\juego\Estado.h" />
+    <ClInclude Include="..\OpenGL_Stuff\include\juego\PerspetivaFrente.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
