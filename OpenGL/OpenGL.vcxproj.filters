@@ -13,6 +13,7 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+<<<<<<< Updated upstream
     <Filter Include="Archivos de origen\shaders">
       <UniqueIdentifier>{48ec3d62-86ec-44ca-be94-f2393252c307}</UniqueIdentifier>
     </Filter>
@@ -22,6 +23,8 @@
     <Filter Include="Archivos de origen\model">
       <UniqueIdentifier>{14a736ad-77a6-4410-8661-d04c0f9ce194}</UniqueIdentifier>
     </Filter>
+=======
+>>>>>>> Stashed changes
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\OpenGL_Stuff\Library\glad.c">
