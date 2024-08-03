@@ -1,0 +1,11 @@
+Model Information:
+* title:	Tikal, Guatemala (Mayan ruins)
+* source:	https://sketchfab.com/3d-models/tikal-guatemala-mayan-ruins-8f5a7d4b8a7b4b4caf9140e752f4a519
+* author:	Dr. Eddie's Class (https://sketchfab.com/gonzalezedito)
+
+Model License:
+* license type:	CC-BY-NC-ND-4.0 (http://creativecommons.org/licenses/by-nc-nd/4.0/)
+* requirements:	Author must be credited. No commercial use. Modified versions can not be distributed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Tikal, Guatemala (Mayan ruins)" (https://sketchfab.com/3d-models/tikal-guatemala-mayan-ruins-8f5a7d4b8a7b4b4caf9140e752f4a519) by Dr. Eddie's Class (https://sketchfab.com/gonzalezedito) licensed under CC-BY-NC-ND-4.0 (http://creativecommons.org/licenses/by-nc-nd/4.0/)

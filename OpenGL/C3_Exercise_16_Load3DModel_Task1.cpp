@@ -86,10 +86,12 @@ int main()
     // load models
     // -----------
     //Model ourModel(FileSystem::getPath("resources/objects/backpack/backpack.obj"));
-    Model ourModel("C:/Users/Angel/Documents/Visual Studio 2022/OpenGL/OpenGL/model/skyboxRuins/skyBoxRuins.obj");
     //Model ourModel("C:/Users/Angel/Documents/Visual Studio 2022/OpenGL/OpenGL/model/backpack/backpack.obj");
     //Model ourModel("model/backpack/backpack.obj");
-    
+
+    //Model ourModel("C:/Users/Angel/Documents/Visual Studio 2022/OpenGL/OpenGL/model/skyboxRuins/skyBoxRuins.obj");
+    //Model ourModel("C:/Users/Angel/Documents/Visual Studio 2022/OpenGL/OpenGL/model/wrathDragon/wrathDragon.obj");
+    Model ourModel("C:/Users/Angel/Documents/Visual Studio 2022/OpenGL/OpenGL/model/mayanRuins/mayanRuins.obj");
     
     // draw in wireframe
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -124,12 +126,11 @@ int main()
 
         // render the loaded model
         glm::mat4 model = glm::mat4(1.0f);
+        model = glm::rotate(model, currentFrame * glm::radians(10.0f), glm::vec3(0.0f, 1.0f, 0.0f));
         model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
-        model = glm::scale(model, glm::vec3(0.01f, 0.01f, 0.01f));	// it's a bit too big for our scene, so scale it down
+        model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));	// it's a bit too big for our scene, so scale it down
         ourShader.setMat4("model", model);
         ourModel.Draw(ourShader);
-
-
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
