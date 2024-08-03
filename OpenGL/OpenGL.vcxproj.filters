@@ -64,16 +64,22 @@
     <None Include="shaders\B2T4_Angel_Chuncho_shader_casters.vs">
       <Filter>Archivos de origen\shaders</Filter>
     </None>
-    <None Include="shaders\shader_exercise16_mloading.fs">
+    <None Include="shaders\shader_casters.fs">
       <Filter>Archivos de origen\shaders</Filter>
     </None>
-    <None Include="shaders\shader_exercise16_mloading.vs">
+    <None Include="shaders\shader_casters.vs">
       <Filter>Archivos de origen\shaders</Filter>
     </None>
     <None Include="shaders\anim_model.fs">
       <Filter>Archivos de origen\shaders</Filter>
     </None>
     <None Include="shaders\anim_model.vs">
+      <Filter>Archivos de origen\shaders</Filter>
+    </None>
+    <None Include="shaders\shader_exercise16_mloading.fs">
+      <Filter>Archivos de origen\shaders</Filter>
+    </None>
+    <None Include="shaders\shader_exercise16_mloading.vs">
       <Filter>Archivos de origen\shaders</Filter>
     </None>
   </ItemGroup>

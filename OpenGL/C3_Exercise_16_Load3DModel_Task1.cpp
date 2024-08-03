@@ -81,18 +81,14 @@ int main()
 
     // build and compile shaders
     // -------------------------
-    Shader ourShader("shaders/shader_exercise16_mloading.vs", "shaders/shader_exercise16_mloading.fs");
+    Shader modelShader("shaders/shader_exercise16_mloading.vs", "shaders/shader_exercise16_mloading.fs");
+    Shader lightingShader("shaders/shader_casters.vs", "shaders/shader_casters.fs");
 
     // load models
     // -----------
-    //Model ourModel(FileSystem::getPath("resources/objects/backpack/backpack.obj"));
-    //Model ourModel("C:/Users/Angel/Documents/Visual Studio 2022/OpenGL/OpenGL/model/backpack/backpack.obj");
-    //Model ourModel("model/backpack/backpack.obj");
+    Model mayanScene("C:/Users/Angel/Documents/Visual Studio 2022/OpenGL/OpenGL/model/mayanRuins/mayanCity.obj");
+    Model moon("C:/Users/Angel/Documents/Visual Studio 2022/OpenGL/OpenGL/model/moon/moon.obj");
 
-    //Model ourModel("C:/Users/Angel/Documents/Visual Studio 2022/OpenGL/OpenGL/model/skyboxRuins/skyBoxRuins.obj");
-    //Model ourModel("C:/Users/Angel/Documents/Visual Studio 2022/OpenGL/OpenGL/model/wrathDragon/wrathDragon.obj");
-    Model ourModel("C:/Users/Angel/Documents/Visual Studio 2022/OpenGL/OpenGL/model/mayanRuins/mayanRuins.obj");
-    
     // draw in wireframe
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
@@ -116,21 +112,40 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // don't forget to enable shader before setting uniforms
-        ourShader.use();
+        modelShader.use();
+        
 
         // view/projection transformations
         glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
         glm::mat4 view = camera.GetViewMatrix();
-        ourShader.setMat4("projection", projection);
-        ourShader.setMat4("view", view);
+        modelShader.setMat4("projection", projection);
+        modelShader.setMat4("view", view);
+        
+        lightingShader.use();
+        lightingShader.setMat4("projection", projection);
+        lightingShader.setMat4("view", view);
+        // Directional light
+        glUniform3f(glGetUniformLocation(lightingShader.ID, "dirLight.direction"), -0.2f, -1.0f, -0.3f);
+        glUniform3f(glGetUniformLocation(lightingShader.ID, "dirLight.ambient"), 0.0f, 0.0f, 0.0f);
+        glUniform3f(glGetUniformLocation(lightingShader.ID, "dirLight.diffuse"), 0.05f, 0.05f, 0.05);
+        glUniform3f(glGetUniformLocation(lightingShader.ID, "dirLight.specular"), 0.8f, 0.8f, 0.8f);
 
-        // render the loaded model
+        // render the loaded models
+        //--------------- Mayan Scene ---------------//
         glm::mat4 model = glm::mat4(1.0f);
-        model = glm::rotate(model, currentFrame * glm::radians(10.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        //model = glm::rotate(model, currentFrame * glm::radians(10.0f), glm::vec3(0.0f, 1.0f, 0.0f));
         model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
-        model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));	// it's a bit too big for our scene, so scale it down
-        ourShader.setMat4("model", model);
-        ourModel.Draw(ourShader);
+        model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));	// it's a bit too big for our scene, so scale it down
+        modelShader.setMat4("model", model);
+        mayanScene.Draw(modelShader);
+
+        //--------------- Moon ---------------//
+        model = glm::mat4(1.0f);
+        //model = glm::rotate(model, currentFrame * glm::radians(30.0f), glm::vec3(1.0f, 1.0f, 0.0f));
+        model = glm::translate(model, glm::vec3(-3.0f, 6.5f, 0.0f)); // translate it down so it's at the center of the scene
+        model = glm::scale(model, glm::vec3(0.005f, 0.005f, 0.005f));	// it's a bit too big for our scene, so scale it down
+        modelShader.setMat4("model", model);
+        moon.Draw(modelShader);
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------

@@ -152,6 +152,8 @@
     <None Include="shaders\B2T4_Angel_Chuncho_shader_casters.vs" />
     <None Include="shaders\shader_exercise16_mloading.fs" />
     <None Include="shaders\shader_exercise16_mloading.vs" />
+    <None Include="shaders\shader_casters.fs" />
+    <None Include="shaders\shader_casters.vs" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="cube_vertices.txt" />
