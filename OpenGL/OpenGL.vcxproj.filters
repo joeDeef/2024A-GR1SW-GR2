@@ -23,4 +23,12 @@
   <ItemGroup>
     <None Include="model\avioncito\avioncito.mtl" />
   </ItemGroup>
+  <ItemGroup>
+    <Filter Include="shaders">
+      <UniqueIdentifier>{daa31c47-6138-44a1-80ae-a2a81f9556ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="textures">
+      <UniqueIdentifier>{772f4cb9-c7fb-44d1-9009-5ee620fc153c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
 </Project>
