@@ -32,48 +32,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="textures\Texture7.png">
-      <Filter>Archivos de origen\textures</Filter>
-    </Image>
-    <Image Include="textures\textureTropper.jpg">
-      <Filter>Archivos de origen\textures</Filter>
-    </Image>
-    <Image Include="textures\textureBobaFett.png">
-      <Filter>Archivos de origen\textures</Filter>
-    </Image>
-    <Image Include="textures\container2.png">
-      <Filter>Archivos de origen\textures</Filter>
-    </Image>
-    <Image Include="textures\container2_specular.png">
-      <Filter>Archivos de origen\textures</Filter>
-    </Image>
-    <Image Include="textures\matrix.jpg">
-      <Filter>Archivos de origen\textures</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="shaders\B2T4_Angel_Chuncho_shader_lightcube.fs">
-      <Filter>Archivos de origen\shaders</Filter>
-    </None>
-    <None Include="shaders\B2T4_Angel_Chuncho_shader_lightcube.vs">
-      <Filter>Archivos de origen\shaders</Filter>
-    </None>
-    <None Include="shaders\B2T4_Angel_Chuncho_shader_casters.fs">
-      <Filter>Archivos de origen\shaders</Filter>
-    </None>
-    <None Include="shaders\B2T4_Angel_Chuncho_shader_casters.vs">
-      <Filter>Archivos de origen\shaders</Filter>
-    </None>
     <None Include="shaders\shader_casters.fs">
       <Filter>Archivos de origen\shaders</Filter>
     </None>
     <None Include="shaders\shader_casters.vs">
-      <Filter>Archivos de origen\shaders</Filter>
-    </None>
-    <None Include="shaders\anim_model.fs">
-      <Filter>Archivos de origen\shaders</Filter>
-    </None>
-    <None Include="shaders\anim_model.vs">
       <Filter>Archivos de origen\shaders</Filter>
     </None>
     <None Include="shaders\shader_exercise16_mloading.fs">

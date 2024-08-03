@@ -136,20 +136,6 @@
     <ClCompile Include="C3_Exercise_16_Load3DModel_Task1.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="textures\container2.png" />
-    <Image Include="textures\container2_specular.png" />
-    <Image Include="textures\matrix.jpg" />
-    <Image Include="textures\Texture7.png" />
-    <Image Include="textures\textureBobaFett.png" />
-    <Image Include="textures\textureTropper.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="shaders\anim_model.fs" />
-    <None Include="shaders\anim_model.vs" />
-    <None Include="shaders\B2T4_Angel_Chuncho_shader_lightcube.fs" />
-    <None Include="shaders\B2T4_Angel_Chuncho_shader_lightcube.vs" />
-    <None Include="shaders\B2T4_Angel_Chuncho_shader_casters.fs" />
-    <None Include="shaders\B2T4_Angel_Chuncho_shader_casters.vs" />
     <None Include="shaders\shader_exercise16_mloading.fs" />
     <None Include="shaders\shader_exercise16_mloading.vs" />
     <None Include="shaders\shader_casters.fs" />
