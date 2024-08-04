@@ -106,7 +106,7 @@ int main()
                 ballPos.y = demonio.y + 0.37f;
             }
             else {
-                ballPos.z += deltaTime * 1.2f;
+                ballPos.z += deltaTime * 4.0f;
             }
             
             demonio.x = (cos(glfwGetTime()/3.0f)) * 3.0f;
