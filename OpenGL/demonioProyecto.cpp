@@ -100,7 +100,7 @@ int main()
         processInput(window);
 
         // update fireball position
-            if (ballPos.z > 4.0f) {
+            if (ballPos.z > 6.0f) {
                 ballPos.z = demonio.z + 0.37f; // Reset position
                 ballPos.x = demonio.x;
                 ballPos.y = demonio.y + 0.37f;
