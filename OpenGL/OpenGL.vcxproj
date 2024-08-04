@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{dd7b56ae-f962-4c27-86bf-9bb025b1e1c2}</ProjectGuid>
+    <ProjectGuid>{6bc63929-b744-4912-9a31-cecabd47f9b8}</ProjectGuid>
     <RootNamespace>OpenGL</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -71,7 +71,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)OpenGL_Stuff\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)OpenGL_stuff\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -111,7 +111,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)OpenGL_Stuff\Library;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)OpenGL_stuff\Library;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>opengl32.lib;glfw3.lib;assimp-vc143-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -132,23 +132,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\OpenGL_Stuff\Library\glad.c" />
-    <ClCompile Include="ProyectoCG.cpp" />
+    <ClCompile Include="..\OpenGL_stuff\Library\glad.c" />
+    <ClCompile Include="demonioProyecto.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="model\avioncito\avioncito.mtl" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="model\avioncito\AILES_baseColor.jpeg" />
-    <Image Include="model\avioncito\AMORTIS_baseColor.jpeg" />
-    <Image Include="model\avioncito\BAGUE_baseColor.jpeg" />
-    <Image Include="model\avioncito\BOMBE_baseColor.jpeg" />
-    <Image Include="model\avioncito\CARLINGUE_baseColor.jpeg" />
-    <Image Include="model\avioncito\echappement_baseColor.jpeg" />
-    <Image Include="model\avioncito\ELICE_baseColor.jpeg" />
-    <Image Include="model\avioncito\entourage_MOTEUR_baseColor.jpeg" />
-    <Image Include="model\avioncito\PNEU_baseColor.jpeg" />
-    <Image Include="model\avioncito\PNEU_normal.png" />
+    <None Include="shaders\shader_exercise16_mloading.fs" />
+    <None Include="shaders\shader_exercise16_mloading.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
