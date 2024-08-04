@@ -115,7 +115,8 @@ int main()
         Model("C:/Users/User/Documents/VisualStudio2022/OpenGL/OpenGL/model/immortalDemonic/demonio.obj"),
         Model("C:/Users/User/Documents/VisualStudio2022/OpenGL/OpenGL/model/ovni/ovni.obj"),
         Model("C:/Users/User/Documents/VisualStudio2022/OpenGL/OpenGL/model/nave/nave.obj"),
-        Model("C:/Users/User/Documents/VisualStudio2022/OpenGL/OpenGL/model/escenario/escenario.obj")
+        Model("C:/Users/User/Documents/VisualStudio2022/OpenGL/OpenGL/model/escenario/escenario.obj"),
+        Model("C:/Users/User/Documents/VisualStudio2022/OpenGL/OpenGL/model/calavera/calavera.obj"),
     };
 
     //Posicion Inicial de los modelos
@@ -139,6 +140,16 @@ int main()
         glm::vec3(0.2f, 0.2f, 1.0f)
     };
 
+    glm::vec3 posicionCalaveras[] = {
+        glm::vec3(1.0f, -0.1f, -5.0f),
+        glm::vec3(-6.0f, -0.1f, -2.3f),
+        glm::vec3(3.0f, -0.1f, 2.0),
+        glm::vec3(2.2f, -0.1f, 6.4f),
+        glm::vec3(-2.2f, -0.1f, -10.0f),
+        glm::vec3(0.5f, -0.1f, 10.0f),
+        glm::vec3(-8.5f, -0.1f, 4.0),
+        glm::vec3(-10.0f, -0.1f, -4.0f)
+    };
     camera.MovementSpeed = 10;
 
     // render loop
@@ -215,34 +226,6 @@ int main()
         lightingShader.setMat4("view", view);
         glm::mat4 model = glm::mat4(1.0f);
 
-        //Movimiento de la Nave
-        model = glm::translate(model, posicionNave);
-        model = glm::rotate(model, float(glfwGetTime()), glm::vec3(0.0f, 2.0f, 0.0f));
-        model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
-        ourShader.setMat4("model", model);
-        models[1].Draw(ourShader);
-
-        //movimiento Nave -> Por ver si se aplica
-        float angulo = sin(glfwGetTime());
-        if (disparo && habilidad > 0) {
-            model = glm::mat4(1.0f);
-            if (!posicionDisparo) {
-                ultimaPosicion = glm::vec3(float(glfwGetTime()), float(glfwGetTime()), 0.0f);
-                model = glm::translate(model, ultimaPosicion);
-                model = glm::translate(model, glm::vec3(-6.0f, -6.0f, 0.0f));
-                model = glm::rotate(model, angulo, glm::vec3(0.5f, 0.0f, 0.0f));
-            }
-            else {
-                model = glm::translate(model, glm::vec3(float(glfwGetTime()), 0.0f, 0.0f));
-                model = glm::translate(model, ultimaPosicion);
-                setDisparoYPosicion();
-            }
-            model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-            model = glm::scale(model, glm::vec3(0.025f, 0.025f, 0.025f));
-            ourShader.setMat4("model", model);
-            models[2].Draw(ourShader);
-        }
-
         //Posicion del Boss
         model = glm::mat4(1.0f);
         model = glm::translate(model, posicionModelos[1]);
@@ -250,7 +233,18 @@ int main()
         model = glm::scale(model, glm::vec3(0.25f, 0.25f, 0.25f));
         ourShader.setMat4("model", model);
         models[0].Draw(ourShader);
-        
+
+        //Posicion del Calaveras
+        for (int i = 0; i < 8; i++) {
+            model = glm::mat4(1.0f);
+            model = glm::translate(model, glm::vec3(0.0f,sin(glfwGetTime())/2,0.0f));
+            model = glm::translate(model, posicionCalaveras[i]);
+            model = glm::rotate(model, glm::radians(70.0f), glm::vec3(-1.0f, 0.0f, 2.5f));
+            model = glm::scale(model, glm::vec3(0.25f, 0.25f, 0.25f));
+            ourShader.setMat4("model", model);
+            models[4].Draw(ourShader);
+        }
+
         //Posicion del Escenario
         model = glm::mat4(1.0f);
         model = glm::translate(model, posicionModelos[0]);
