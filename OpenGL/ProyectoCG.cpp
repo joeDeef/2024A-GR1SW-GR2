@@ -43,7 +43,7 @@ float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 
 //Posiciones de las cosas
-glm::vec3 posicionNave = glm::vec3(0.0f, 0.0f, 0.0f);
+glm::vec3 posicionNave = glm::vec3(-0.5f, 1.5f, 0.0f);
 glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 0.0f);
 glm::vec3 poscionLuna = glm::vec3(0.0f, 0.0f, 0.0f);
 glm::mat4 projection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 0.1f, 100.0f);
@@ -57,7 +57,7 @@ struct CameraSettings {
 
 //Confiracion para las diferentes posicone sy perspectivas de la camara
 CameraSettings cameraSettings[] = {
-    {glm::vec3(0.0f, 1.5f, 2.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f)}, // Inicial
+    {glm::vec3(0.0f, 1.5f, 5.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f)}, // Inicial
     {glm::vec3(-5.0f, 1.5f, 0.0f), glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f)}, // Lado Izquierdo
     {glm::vec3(0.0f, 10.0f, 2.0f), glm::vec3(0.0f, -1.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f)}  // Arriba
 };
