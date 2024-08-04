@@ -126,7 +126,7 @@ int main()
 #endif
 
     // glfw window creation
-    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Exercise 16 Task 3", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "The Guardian of Xibalba", NULL, NULL);
     if (window == NULL)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
@@ -153,8 +153,8 @@ int main()
     glEnable(GL_DEPTH_TEST);
 
     // build and compile shaders
-    Shader ourShader("shaders/shader_exercise16_mloading.vs", "shaders/shader_exercise16_mloading.fs");
-    Shader lightingShader("shaders/shader_exercise15t5_casters.vs", "shaders/shader_exercise15t5_casters.fs");
+    Shader ourShader("shaders/shader_mloading.vs", "shaders/shader_mloading.fs");
+    Shader lightingShader("shaders/shader_casters.vs", "shaders/shader_casters.fs");
 
     // Cargamos los modelos
     Model models[] = {
