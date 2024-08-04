@@ -13,7 +13,7 @@
 
 #define STB_IMAGE_IMPLEMENTATION 
 #include <learnopengl/stb_image.h>
-
+bool keyPressedP = false; // Estado anterior de la tecla 'P'
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -21,7 +21,9 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void processInput(GLFWwindow *window);
 void setDisparoYPosicion();
 void setPointLight(GLuint shaderID, int index, glm::vec3 position, glm::vec3 color, float constant, float linear, float quadratic);
-
+void setSpotLight(GLuint shaderID, glm::vec3 position, float constant, float linear, float quadratic);
+void setDirectionalLight(GLuint shaderID, glm::vec3 direcction, glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular);
+void cambiarPerspectivaCamara();
 // settings
 const unsigned int SCR_WIDTH = 1500;
 const unsigned int SCR_HEIGHT = 800;
@@ -32,13 +34,9 @@ float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
 bool firstMouse = true;
 bool cambioCamara = false;
-float desplazamiento = 0.003;
+int transicion = 0;
+float desplazamiento = 0.005;
 int j = 0;
-
-// Sin decidir todavia
-bool disparo = false;
-bool posicionDisparo = false;
-int habilidad = 1;
 
 // timing
 float deltaTime = 0.0f;
@@ -47,7 +45,7 @@ float lastFrame = 0.0f;
 //Posiciones de las cosas
 glm::vec3 posicionNave = glm::vec3(0.0f, 0.0f, 0.0f);
 glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 0.0f);
-glm::vec3 ultimaPosicion = glm::vec3(0.0f, 0.0f, 0.0f);
+glm::vec3 poscionLuna = glm::vec3(0.0f, 0.0f, 0.0f);
 glm::mat4 projection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 0.1f, 100.0f);
 
 //Configuracion de la camara
@@ -64,11 +62,18 @@ CameraSettings cameraSettings[] = {
     {glm::vec3(0.0f, 10.0f, 2.0f), glm::vec3(0.0f, -1.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f)}  // Arriba
 };
 
-float transitionDuration = 5.0f; // Duración de la transición en segundos
+
+float transitionDuration1 = 5.0f; // Duración de la transición en segundos
+float transitionDuration2 = 10.0f; // Duración de la transición en segundos
+
 float currentTime = 0.0f;
 
 int main()
 {
+    camera.Position = cameraSettings[0].position;
+    camera.Front = cameraSettings[0].front;
+    camera.Up = cameraSettings[0].up;
+
     // glfw: initialize and configure
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -117,7 +122,9 @@ int main()
         Model("C:/Users/User/Documents/VisualStudio2022/OpenGL/OpenGL/model/nave/nave.obj"),
         Model("C:/Users/User/Documents/VisualStudio2022/OpenGL/OpenGL/model/escenario/escenario.obj"),
         Model("C:/Users/User/Documents/VisualStudio2022/OpenGL/OpenGL/model/calavera/calavera.obj"),
+        Model("C:/Users/User/Documents/VisualStudio2022/OpenGL/OpenGL/model/moon/moon.obj"),
     };
+
 
     //Posicion Inicial de los modelos
     glm::vec3 posicionModelos[] = {
@@ -126,18 +133,22 @@ int main()
         glm::vec3(0.0f,-2.0f,0.0f),
     };    
 
+    poscionLuna = posicionModelos[1] + glm::vec3(50.0f, 40.0f, 0.0f);
+
     glm::vec3 posicionPuntosLuz[] = {
         glm::vec3(0.7f,  0.2f,  2.0f),
         glm::vec3(2.3f, -3.3f, -4.0f),
         glm::vec3(-4.0f,  2.0f, -12.0f),
-        glm::vec3(0.0f,  0.0f, -3.0f)
+        glm::vec3(0.0f,  0.0f, -3.0f),
+        poscionLuna + glm::vec3(-10.0f,0.0f,0.0f)
     };
 
     glm::vec3 posicionColoresLuz[] = {
         glm::vec3(1.0f, 0.6f, 0.0f),
         glm::vec3(1.0f, 0.0f, 0.0f),
         glm::vec3(1.0f, 1.0, 0.0),
-        glm::vec3(0.2f, 0.2f, 1.0f)
+        glm::vec3(0.2f, 0.2f, 1.0f),
+        glm::vec3(1.0f, 1.0f, 1.0f),
     };
 
     glm::vec3 posicionCalaveras[] = {
@@ -150,7 +161,7 @@ int main()
         glm::vec3(-8.5f, -0.1f, 4.0),
         glm::vec3(-10.0f, -0.1f, -4.0f)
     };
-    camera.MovementSpeed = 10;
+    camera.MovementSpeed = 12;
 
     // render loop
     // -----------
@@ -169,28 +180,14 @@ int main()
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+        //Configuración de las luces
+        //----------------------------------------------------------------
         lightingShader.use();
-
-        // SpotLight/*
-        glUniform3f(glGetUniformLocation(lightingShader.ID, "spotLight.position"), posicionNave.x, posicionNave.y, posicionNave.z);
-        glUniform3f(glGetUniformLocation(lightingShader.ID, "spotLight.direction"), 0.0, -1.0, 0.0f);
-        glUniform3f(glGetUniformLocation(lightingShader.ID, "spotLight.ambient"), 0.0f, 0.0f, 0.0f);
-        glUniform3f(glGetUniformLocation(lightingShader.ID, "spotLight.diffuse"), 1.0f, 1.0f, 1.0f);
-        glUniform3f(glGetUniformLocation(lightingShader.ID, "spotLight.specular"), 1.0f, 1.0f, 1.0f);
-        glUniform1f(glGetUniformLocation(lightingShader.ID, "spotLight.constant"), 1.0f);
-        glUniform1f(glGetUniformLocation(lightingShader.ID, "spotLight.linear"), 0.09);
-        glUniform1f(glGetUniformLocation(lightingShader.ID, "spotLight.quadratic"), 0.032);
-        glUniform1f(glGetUniformLocation(lightingShader.ID, "spotLight.cutOff"), glm::cos(glm::radians(10.0f)));
-        glUniform1f(glGetUniformLocation(lightingShader.ID, "spotLight.outerCutOff"), glm::cos(glm::radians(15.0f)));
-
-        // Directional light
-        glUniform3f(glGetUniformLocation(lightingShader.ID, "dirLight.direction"), -0.2f, -1.0f, -0.3f);
-        glUniform3f(glGetUniformLocation(lightingShader.ID, "dirLight.ambient"), 0.0f, 0.0f, 0.0f);
-        glUniform3f(glGetUniformLocation(lightingShader.ID, "dirLight.diffuse"), 0.05f, 0.05f, 0.05);
-        glUniform3f(glGetUniformLocation(lightingShader.ID, "dirLight.specular"), 0.2f, 0.2f, 0.2f);
+        setSpotLight(lightingShader.ID, posicionNave, 1, 0.09, 0.032);          // SpotLight
+        setDirectionalLight(lightingShader.ID, glm::vec3(-0.2f, -1.0f, -0.3f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.5f, 0.5f, 0.5f), glm::vec3(0.2f, 0.2f, 0.2f));                                                  // Directional light
 
         //Indicar los diferentes puntos de luz para la escena
-        for (int i = 0; i < 4; ++i) {
+        for (int i = 0; i < 5; ++i) {
             if (i == 2) {
                 setPointLight(lightingShader.ID, i,
                     posicionPuntosLuz[i],
@@ -204,27 +201,59 @@ int main()
                     1.0f, 0.22f, 0.2f);
             }
         }
+        
+        //Para la transicion de la cámara
 
-        currentTime += 0.001f; // Incrementa el tiempo de transición
-        float t = currentTime / transitionDuration; // Normaliza el tiempo
+        //Configuración de la cámara
+        //---------------------------
+        cameraPos = camera.Position;
+        glm::vec3 cameraFront = camera.Front;
+        glm::vec3 cameraUp = camera.Up;
 
-        t = glm::clamp(t, 0.0f, 1.0f);
+        std::cout << currentTime << std::endl;
+
         //Cambio de perspetiva de la camara
+        //-----------------------------------
+        float t = (transicion == 0) ? (currentTime / transitionDuration1) : (currentTime / transitionDuration2);
+        t = glm::clamp(t, 0.0f, 1.0f);
         if (cambioCamara) {
-            j = 1;
-            currentTime = 0;
-            cambioCamara = false;
+            currentTime += 0.001f; // Incrementa el tiempo de transición
+            if (transicion == 0) {
+                j = 0;
+            }
+            else {
+                j = 1;
+            }
+            if (transicion == 0 && currentTime >= 5) {
+                cambioCamara = false;
+                transicion = 1;
+            }
+            else if (transicion == 1 && currentTime >= 10) {
+                cambioCamara = false;
+            }
+            cameraPos = glm::mix(cameraSettings[j].position, cameraSettings[j + 1].position, t);
+            camera.Position = cameraSettings[j + 1].position;
+            cameraFront = glm::mix(cameraSettings[j].front, cameraSettings[j + 1].front, t);
+            camera.Front = cameraSettings[j + 1].front;
+            cameraUp = glm::mix(cameraSettings[j].up, cameraSettings[j + 1].up, t);
+            camera.Up = cameraSettings[j + 1].up;
         }
-        cameraPos = glm::mix(cameraSettings[j].position, cameraSettings[j+1].position, t);
-        glm::vec3 cameraFront = glm::mix(cameraSettings[j].front, cameraSettings[j+1].front, t);
-        glm::vec3 cameraUp = glm::mix(cameraSettings[j].up, cameraSettings[j+1].up, t);
 
         // view/projection transformations
+        //----------------------------------
         glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
         lightingShader.setMat4("projection", projection);
         glm::mat4 view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
         lightingShader.setMat4("view", view);
         glm::mat4 model = glm::mat4(1.0f);
+
+        //Posicion del ovni
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, posicionNave);
+        model = glm::rotate(model, float(glfwGetTime()), glm::vec3(0.0f, -1.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+        ourShader.setMat4("model", model);
+        models[1].Draw(ourShader);
 
         //Posicion del Boss
         model = glm::mat4(1.0f);
@@ -233,6 +262,14 @@ int main()
         model = glm::scale(model, glm::vec3(0.25f, 0.25f, 0.25f));
         ourShader.setMat4("model", model);
         models[0].Draw(ourShader);
+
+        //Posicion del Moon
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f,-float(glfwGetTime()),0.0f));
+        model = glm::translate(model, poscionLuna);
+        model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+        ourShader.setMat4("model", model);
+        models[5].Draw(ourShader);
 
         //Posicion del Calaveras
         for (int i = 0; i < 8; i++) {
@@ -314,14 +351,14 @@ void processInput(GLFWwindow *window)
             posicionNave.x += desplazamiento;
         }
     }
-    if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS) {
-        disparo = true;
-    }
-    if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) {
-        posicionDisparo = true;
-    }
     if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS) {
-        cambioCamara = true;
+        if (!keyPressedP) { // Si la tecla no estaba presionada anteriormente
+            cambioCamara = true; // Ejecutar la acción una vez
+            keyPressedP = true;  // Actualizar el estado de la tecla
+        }
+    }
+    else {
+        keyPressedP = false; // Resetear el estado cuando la tecla no esté presionada
     }
 }
 
@@ -359,17 +396,6 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
     camera.ProcessMouseScroll(yoffset);
 }
 
-bool tomoUnaHabilidad() {
-    return false;
-}
-
-void setDisparoYPosicion() {
-    if (true) {
-        disparo = false;
-        posicionDisparo = false;
-    }
-}
-
 //Configura los shaders para cada luz en la escena
 void setPointLight(GLuint shaderID, int index, glm::vec3 position, glm::vec3 color, float constant, float linear, float quadratic) {
     std::string baseName = "pointLights[" + std::to_string(index) + "]";
@@ -380,4 +406,29 @@ void setPointLight(GLuint shaderID, int index, glm::vec3 position, glm::vec3 col
     glUniform1f(glGetUniformLocation(shaderID, (baseName + ".constant").c_str()), constant);
     glUniform1f(glGetUniformLocation(shaderID, (baseName + ".linear").c_str()), linear);
     glUniform1f(glGetUniformLocation(shaderID, (baseName + ".quadratic").c_str()), quadratic);
+}
+
+void setSpotLight(GLuint shaderID, glm::vec3 position,  float constant, float linear, float quadratic) {
+    glUniform3f(glGetUniformLocation(shaderID, "spotLight.position"), position.x, position.y, position.z);
+    glUniform3f(glGetUniformLocation(shaderID, "spotLight.direction"), 0.0, -1.0, 0.0f);
+    glUniform3f(glGetUniformLocation(shaderID, "spotLight.ambient"), 0.0f, 0.0f, 0.0f);
+    glUniform3f(glGetUniformLocation(shaderID, "spotLight.diffuse"), 1.0f, 1.0f, 1.0f);
+    glUniform3f(glGetUniformLocation(shaderID, "spotLight.specular"), 1.0f, 1.0f, 1.0f);
+    glUniform1f(glGetUniformLocation(shaderID, "spotLight.constant"), constant);
+    glUniform1f(glGetUniformLocation(shaderID, "spotLight.linear"), linear);
+    glUniform1f(glGetUniformLocation(shaderID, "spotLight.quadratic"), quadratic);
+    glUniform1f(glGetUniformLocation(shaderID, "spotLight.cutOff"), glm::cos(glm::radians(10.0f)));
+    glUniform1f(glGetUniformLocation(shaderID, "spotLight.outerCutOff"), glm::cos(glm::radians(15.0f)));
+}
+
+void setDirectionalLight(GLuint shaderID, glm::vec3 direcction, glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular) {
+    glUniform3f(glGetUniformLocation(shaderID, "dirLight.direction"), direcction.x,direcction.y, direcction.z);
+    glUniform3f(glGetUniformLocation(shaderID, "dirLight.ambient"), ambient.x, ambient.y, ambient.z);
+    glUniform3f(glGetUniformLocation(shaderID, "dirLight.diffuse"), diffuse.x, diffuse.y, diffuse.z);
+    glUniform3f(glGetUniformLocation(shaderID, "dirLight.specular"), specular.x, specular.y, specular.z);
+}
+
+        //Para la transicion de la cámara
+void cambiarPerspectivaCamara() {
+
 }
